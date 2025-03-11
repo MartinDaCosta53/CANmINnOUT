@@ -95,7 +95,7 @@
 unsigned char mname[7] = { 'm', 'I', 'N', 'n', 'O', 'U', 'T' };
 
 // constants
-const byte VER_MAJ = 2;             // code major version
+const byte VER_MAJ = 3;             // code major version
 const char VER_MIN = 'a';           // code minor version
 const byte VER_BETA = 0;            // code beta sub-version
 const byte MANUFACTURER = MANU_DEV; // for boards in development.
@@ -243,7 +243,7 @@ void processSwitches(void) {
       Serial << F(" NV = ") << nv << F(" NV Value = ") << nvval << endl;
 
       switch (nvval) {
-        case 0:
+        case 1:
           // ON and OFF
           opCode = (moduleSwitch[i].fell() ? OPC_ACON : OPC_ACOF);
           DEBUG_PRINT(F("> Button ") << i
@@ -251,7 +251,7 @@ void processSwitches(void) {
           isSuccess = sendEvent(opCode, (i + 1));
           break;
 
-        case 1:
+        case 2:
           // Only ON
           if (moduleSwitch[i].fell()) {
             opCode = OPC_ACON;
@@ -260,7 +260,7 @@ void processSwitches(void) {
           }
           break;
 
-        case 2:
+        case 3:
           // Only OFF
           if (moduleSwitch[i].fell()) {
             opCode = OPC_ACOF;
@@ -269,7 +269,7 @@ void processSwitches(void) {
           }
           break;
 
-        case 3:
+        case 4:
           // Toggle button
           if (moduleSwitch[i].fell()) {
             switchState[i] = !switchState[i];
